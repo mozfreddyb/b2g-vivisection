@@ -1,0 +1,7 @@
+b2g-vivisection
+===============
+
+This script modifies a rooted Firefox OS device when running.
+
+It first flashes a new hosts file (e.g. one with undesired hosts blocked out)
+and then adds duckduckgo as a search provider (by overwriting providers.json)
