@@ -12,6 +12,7 @@ adb pull /system/b2g/webapps/settings.gaiamobile.org/application.zip &&
 echo "*** Adding ddg as search provider" &&
 zip --verbose -r application.zip resources/search/* &&
 adb push application.zip /system/b2g/webapps/settings.gaiamobile.org/application.zip &&
+adb shell touch /system/b2g/webapps/settings.gaiamobile.org/manifest.webapp &&
 rm application.zip &&
 echo "*** Rebooting" &&
 adb reboot
