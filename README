@@ -16,10 +16,11 @@ flashing/updating a device and before restoring user-data from a
 known-good backup.
 
 
-What this script does:
-======================
+What this script does
+=====================
 
-Filesystem Modifications:
+Filesystem Modifications
+========================
 The script will go look into the directory `filesystem-mods` and
 considers this as a copy of the path `/` on device.
 This means that every file in `filesystem-mods` will be copied to the
@@ -29,7 +30,9 @@ Example: `filesystem-mods/etc/hosts` will be copied to `/etc/hosts`
 This would allow blocking access to certain domains, effectively
 installing an ad blocker.
 
-App Modifications:
+
+App Modifications
+=================
 This works similarly to the filesystem modifications, except apps are
 present on device as a ZIP file. This script will download the app as
 application.zip and modify files *within the ZIP* by replacing selective
