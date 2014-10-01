@@ -12,7 +12,7 @@ class ADB():
 
     def _run_adb(self, args):
         def call(*args):
-            print 'DEBUG MODE. I would call:', args
+            print '$ adb ', args
         return call((['adb'] + args))
 
     def push(self, localpath, remotepath):
