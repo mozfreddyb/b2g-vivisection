@@ -19,27 +19,27 @@ class ADB():
         #    print '$ adb ', args
         #print "$", str(['adb'] + args)
         p = Popen((['adb'] + args))
-        p.wait()
+        return p.wait()
 
     def push(self, localpath, remotepath):
-        self._run_adb(['push', localpath, remotepath])
+        return self._run_adb(['push', localpath, remotepath])
 
     def pull(self, remotepath, localpath="."):
-        self._run_adb(['pull', remotepath, localpath])
+        return self._run_adb(['pull', remotepath, localpath])
 
     def remount(self):
         self.shouldReboot = True
-        self._run_adb(['remount'])
+        return self._run_adb(['remount'])
 
     def reboot(self):
-        self._run_adb(['reboot'])
+        return self._run_adb(['reboot'])
 
     def stopB2G(self):
         self.shouldReboot = True
-        self._run_adb(['shell', 'stop', 'b2g'])
+        return self._run_adb(['shell', 'stop', 'b2g'])
 
     def startB2G(self):
         print "### You are restarting B2G. "\
               "But depending on the modifications you have made, you might want to reboot the device instead?"
-        self._run_adb(['shell', 'start', 'b2g'])
+        return self._run_adb(['shell', 'start', 'b2g'])
 

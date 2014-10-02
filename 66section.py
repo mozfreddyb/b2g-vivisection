@@ -20,20 +20,32 @@ if __name__ == "__main__":
                 continue
             else:
                 remotepath = os.path.join("/", os.path.relpath(fullpath, 'filesystem-mods'))
+                print "### Patching file:", remotepath
                 adb.push(fullpath, remotepath)
 
+    adb.remount()
+    print "### Looking for filesystem patches..."
     os.path.walk('filesystem-mods', visitFsNode, None)
 
+    cwd_abs = os.path.abspath(os.curdir)
+
     for appdir in listdir("app-mods"):
-        if not os.path.isdir(os.path.join("app-mods/", appdir)):
-            print "Not a directory. Skipping", appdir
+        appdir_abs = os.path.abspath(os.path.join("app-mods/", appdir))
+        if not os.path.isdir(appdir_abs):
+            print "### Not a directory. Skipping", appdir
             continue
         else:
-            # e.g. app-mods/settings.gaiamobile.org_application.zip
-            localname = os.path.join('app-mods/', appdir + "_application.zip")
-            remotename = os.path.join("/system/b2g/webapps/", appdir, "/application.zip")
+            print "### Patching", appdir
+            # e.g. app-mods/settings.gaiamobile.org"
+            zipname = os.path.join(appdir_abs, "application.zip")#
+            # XXX the remotepath may be wrong. there's also /data/local/webapps it seems.
+            remotename = os.path.join("/system/b2g/webapps/", appdir, "application.zip")
             # Get the app
-            adb.pull(remotename, localname)
+            print "### Fetching & Modifying..."
+            if adb.pull(remotename, zipname) != 0:
+                print "EEE App {} does not exist on device. Skipping".format(appdir)
+                continue
+
             # Modify ZIP in-place
             #print "Changing to", appdir_abs
             os.chdir(appdir_abs)
