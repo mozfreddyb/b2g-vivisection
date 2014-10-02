@@ -6,6 +6,7 @@
 
 import os.path
 from os import listdir
+from subprocess import Popen
 
 from adbhelper import ADB
 
@@ -34,16 +35,20 @@ if __name__ == "__main__":
             # Get the app
             adb.pull(remotename, localname)
             # Modify ZIP in-place
-            def addToZip(zipname, dirname, fnames):
-                zipname = os.path.relpath(zipname, "app-mods")
-                for f in fnames:
-                    fullpath = os.path.join(dirname, f)
-                    if os.path.isfile(fullpath):
-                        os.chdir("app-mods") # if paths aren't relative to the ZIP, it won't work.
-                        print "$ zip -r", zipname, os.path.relpath(fullpath, "app-mods")
-                        os.chdir("..")
-                        # TODO FIXME XXX something in here is messed up. fix tomorrow.
+            #print "Changing to", appdir_abs
+            os.chdir(appdir_abs)
+            for fnode in listdir("."):
+                if fnode == "application.zip":
+                    continue
+                #print "$", str(['zip', '-r', 'application.zip', fnode])
+                p = Popen(['zip', '-r', 'application.zip', fnode], cwd=appdir_abs)
+                p.wait()
 
-            os.path.walk(os.path.join("app-mods/", appdir), addToZip, localname)
+
             # Push it back
-            adb.push(localname, remotename)
+            print "### Pushing back to device"
+            adb.push(zipname, remotename)
+            p=Popen(["rm", "application.zip"], cwd=appdir_abs)
+            p.wait()
+
+            os.chdir(cwd_abs)
