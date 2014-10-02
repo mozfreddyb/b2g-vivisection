@@ -8,7 +8,7 @@ It expects apps that you want modified to live in `/system/b2g/webapps/`
 b2g-vivisection
 ===============
 
-This script allows a rooted Firefox OS device when running.
+This script allows you to modify a rooted Firefox OS device when running.
 It requires the phone to be rooted.
 
 **WARNING**:
