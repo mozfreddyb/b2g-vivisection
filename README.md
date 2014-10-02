@@ -1,6 +1,7 @@
-**PROJECT STATUS**
+PROJECT STATUS
 ===================
-**b2g-vivisection currently *DOES NOT WORK*!**
+b2g-vivisection might not work for production builds.
+It expects apps that you want modified to live in `/system/b2g/webapps/`
 
 -----------------------------------------------------------------------
 
@@ -10,9 +11,10 @@ b2g-vivisection
 This script allows a rooted Firefox OS device when running.
 It requires the phone to be rooted.
 
-**WARNING**: This script does neither check for compatibility nor support!
-If you overwrite stuff that you have no backup off, it will be lost!
-It is recommended to apply changes with b2g-vivisection after
+**WARNING**:
+ - This script does neither check for compatibility nor support!
+ - If you overwrite stuff that you have no backup off, it will be lost!
+ - It is recommended to apply changes with b2g-vivisection after
 flashing/updating a device and before restoring user-data from a
 known-good backup.
 
